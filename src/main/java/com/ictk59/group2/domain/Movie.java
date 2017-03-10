@@ -1,0 +1,158 @@
+package com.ictk59.group2.domain;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "movie_collection")
+public class Movie {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name = "title")
+	private String title;
+	
+	@Column(name = "year")
+	private String year;
+	
+	@Column(name = "country")
+	private String country;
+	
+	@Column(name = "genre")
+	private String genre;
+	
+	@Column(name = "director")
+	private String director;
+	
+	@Column(name = "casts")
+	private String casts;
+	
+	@Column(name = "plot", columnDefinition = "TEXT")
+	private String plot;
+	
+	@Column(name = "poster")
+	private String poster;
+	
+	@Column(name = "rating")
+	private String rating;
+	
+	@Column(name = "runtime")
+	private String runtime;
+	
+	protected Movie() {
+		
+	}
+
+	public Movie(String title, String year, String country, String genre, String director, String casts, String plot, String poster,
+			String rating, String runtime) {
+		super();
+		this.title = title;
+		this.year = year;
+		this.country = country;
+		this.genre = genre;
+		this.director = director;
+		this.casts = casts;
+		this.plot = plot;
+		this.poster = poster;
+		this.rating = rating;
+		this.runtime = runtime;
+		
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public String getDirector() {
+		return director;
+	}
+
+	public void setDirector(String director) {
+		this.director = director;
+	}
+
+	public String getCasts() {
+		return casts;
+	}
+
+	public void setCasts(String casts) {
+		this.casts = casts;
+	}
+
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
+
+	public String getRuntime() {
+		return runtime;
+	}
+
+	public void setRuntime(String runtime) {
+		this.runtime = runtime;
+	}
+	
+	public String getPoster() {
+		return poster;
+	}
+
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "Movie [id=" + id + ", title=" + title + ", year=" + year + ", country=" + country + ", genre=" + genre
+				+ ", director=" + director + ", casts=" + casts + ", plot=" + plot + ", rating=" + rating + ", runtime="
+				+ runtime + "]";
+	}
+}
