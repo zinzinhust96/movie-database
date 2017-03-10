@@ -45,7 +45,7 @@ public class Movie {
 	@Column(name = "runtime")
 	private String runtime;
 	
-	protected Movie() {
+	public Movie() {
 		
 	}
 

@@ -20,11 +20,15 @@ public class MovieService {
 	}
 
 	public List<Movie> getMovieOrderByYear() {
-		return movieRepo.findByOrderByYearDesc();
+		return movieRepo.findAllByOrderByYearDesc();
 	}
 
 	public Movie getMovieById(Long id) {
 		return movieRepo.findOne(id);
+	}
+
+	public List<Movie> getMoviesByTitle(String movieName) {
+		return movieRepo.findAllByTitleStartingWithIgnoreCase(movieName);
 	}
 
 }

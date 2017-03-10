@@ -8,6 +8,8 @@ import com.ictk59.group2.domain.Movie;
 
 public interface MovieRepository extends CrudRepository<Movie, Long> {
 
-	List<Movie> findByOrderByYearDesc();
+	List<Movie> findAllByOrderByYearDesc();
+
+	List<Movie> findAllByTitleStartingWithIgnoreCase(String movieName);
 
 }

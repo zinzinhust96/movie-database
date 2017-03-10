@@ -20,7 +20,7 @@
 					<th></th><th>Title</th><th>Year</th><th>Rating</th>
 				</tr>
 				<tr th:each="movie : ${movies}">
-					<td><img th:src="${movie.poster}"/></td>
+					<td><a th:href="|@{/movie/}${movie.id}|"><img th:src="${movie.poster}"/></a></td>
 					<td><a th:href="|@{/movie/}${movie.id}|" th:text="${movie.title}">Movie Name</a></td>
 					<td th:text="${movie.year}">Movie Year</td>
 					<td th:text="${movie.rating}">Movie Rating</td>
