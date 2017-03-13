@@ -13,12 +13,12 @@
 	   
 		<div class="container">
 		
-		<h2>Movie lists</h2>
+		<h2>Latest <span th:text="${type}">type</span> feature films</h2>
 		<table class="table table-hover">
 			<p>SORT BY: 
 				<a th:href="@{/movie/sort-rating}">Rating</a>
 				<span>|</span>
-				<a th:href="@{/movie/sort-year}">Release Year</a>
+				<a th:href="@{/movie/sort-year}" class="dropdown"><strong><ins>Release Year</ins></strong><span class="caret"></span></a>
 			</p>
 			<tbody>
 				<tr>

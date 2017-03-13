@@ -28,7 +28,11 @@ public class MovieService {
 	}
 
 	public List<Movie> getMoviesByTitle(String movieName) {
-		return movieRepo.findAllByTitleStartingWithIgnoreCase(movieName);
+		return movieRepo.findAllByTitleContainingIgnoreCase(movieName);
+	}
+
+	public List<Movie> getMovieByGenreOrderByRating(String genre) {
+		return movieRepo.findAllByGenreContainingIgnoreCaseOrderByRatingDesc(genre);
 	}
 
 }

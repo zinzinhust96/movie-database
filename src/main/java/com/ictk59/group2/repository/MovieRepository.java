@@ -10,6 +10,8 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 
 	List<Movie> findAllByOrderByYearDesc();
 
-	List<Movie> findAllByTitleStartingWithIgnoreCase(String movieName);
+	List<Movie> findAllByTitleContainingIgnoreCase(String movieName);
+
+	List<Movie> findAllByGenreContainingIgnoreCaseOrderByRatingDesc(String genre);
 
 }

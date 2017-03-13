@@ -1,5 +1,9 @@
 package com.ictk59.group2.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +23,22 @@ import com.ictk59.group2.service.MovieService;
 public class MovieController {
 	
 	private MovieService movieService;
-		
+	
+	public static List<Movie> movies;
+	
+	private Boolean desc = true;
+	
+	public static String type;
+
 	@Autowired
 	public MovieController(MovieService movieService) {
 		super();
 		this.movieService = movieService;
 	}
 	
-	@RequestMapping("/")
-	public String home(Model model){
-		model.addAttribute("movies", movieService.getMovieOrderByYear());
-		model.addAttribute("movie", new Movie());
-		return "index";
+	@ModelAttribute("movie")
+	public Movie newMovie(){
+		return new Movie();
 	}
 
 	@RequestMapping("/{movieId}")
@@ -43,9 +51,71 @@ public class MovieController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(@ModelAttribute("movie") Movie movie, Model model){
 		System.out.println(movie.getTitle());
-		List<Movie> movies = movieService.getMoviesByTitle(movie.getTitle());
+		movies = movieService.getMoviesByTitle(movie.getTitle());
 		model.addAttribute("movies", movies);
 		return "index";
+	}
+	
+	@RequestMapping("/sort-rating")
+	public String sortRating(Model model){
+		model.addAttribute("type", type);
+		if(desc == true){
+			Collections.sort(movies, new Comparator<Movie>() {
+				@Override
+				public int compare(Movie m1, Movie m2) {
+					return m2.getRating().compareTo(m1.getRating());
+				}
+			});
+			desc = false;
+			model.addAttribute("movies", movies);
+			return "movie/rating-desc";
+		}else{
+			Collections.sort(movies, new Comparator<Movie>() {
+				@Override
+				public int compare(Movie m1, Movie m2) {
+					return m1.getRating().compareTo(m2.getRating());
+				}
+			});
+			desc = true;
+			model.addAttribute("movies", movies);
+			return "movie/rating-asc";
+		}
+	}
+	
+	@RequestMapping("/sort-year")
+	public String sortYear(Model model){
+		model.addAttribute("type", type);
+		if(desc == true){
+			Collections.sort(movies, new Comparator<Movie>() {
+				@Override
+				public int compare(Movie m1, Movie m2) {
+					return m2.getYear().compareTo(m1.getYear());
+				}
+			});
+			desc = false;
+			model.addAttribute("movies", movies);
+			return "movie/year-desc";
+		}else{
+			Collections.sort(movies, new Comparator<Movie>() {
+				@Override
+				public int compare(Movie m1, Movie m2) {
+					return m1.getYear().compareTo(m2.getYear());
+				}
+			});
+			desc = true;
+			model.addAttribute("movies", movies);
+			return "movie/year-asc";
+		}
+	}
+	
+	@RequestMapping("/genre/{type}")
+	public String topByGenre(@PathVariable String type, Model model){
+		this.type = type;
+		movies = movieService.getMovieByGenreOrderByRating(this.type);
+		model.addAttribute("type", type);
+		model.addAttribute("movies", movies);
+		desc = false;
+		return "movie/rating-desc";
 	}
 	
 }

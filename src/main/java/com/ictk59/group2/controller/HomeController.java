@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ictk59.group2.domain.Movie;
 import com.ictk59.group2.service.MovieService;
 
 @Controller
@@ -20,8 +21,13 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String home(Model model){
-		model.addAttribute("movies", movieService.getMovieOrderByYear());
-		return "index";
+		model.addAttribute("movie", new Movie());
+		
+		MovieController.type = "";
+				
+		MovieController.movies = movieService.getMovieOrderByYear();
+		model.addAttribute("movies", MovieController.movies);
+		return "movie/year-desc";
 	}
 	
 }

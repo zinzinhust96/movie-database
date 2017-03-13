@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
 	xmlns:th="http://www.thymleaf.org"
-	layout:decorator="header/main">
+	layout:decorator="layouts/main">
 <head>
 	<title>MOVIE DATABASE - Home Page</title>
 	
@@ -15,20 +15,28 @@
 		
 		<h2>Movie lists</h2>
 		<table class="table table-hover">
+			<p>SORT BY: 
+				<a th:href="@{/movie/sort-rating}">Rating</a>
+				<span>|</span>
+				<a th:href="@{/movie/sort-year}">Release Year</a>
+			</p>
 			<tbody>
 				<tr>
-					<th></th><th>Title</th><th>Year</th><th>Rating</th>
+					<th></th><th>Title</th><th>Rating</th>
 				</tr>
 				<tr th:each="movie : ${movies}">
-					<td><a th:href="|@{/movie/}${movie.id}|"><img th:src="${movie.poster}"/></a></td>
-					<td><a th:href="|@{/movie/}${movie.id}|" th:text="${movie.title}">Movie Name</a></td>
-					<td th:text="${movie.year}">Movie Year</td>
+					<td><a th:href="@{/movie/} + ${movie.id}"><img th:src="${movie.poster}"/></a></td>
+					<td><a th:href="@{/movie/} + ${movie.id}" th:text="${movie.title + ' (' + movie.year + ')'}">Movie Name</a></td>
 					<td th:text="${movie.rating}">Movie Rating</td>
 				</tr>
 			</tbody>
 		</table>
 		
-	</div>
+		</div>
+		
+		<p th:if="${movies.size() == 0}">
+			<div class="alert alert-warning" role="alert">No Movies Found.</div>
+		</p>
 		
 	</div>
 		
