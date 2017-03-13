@@ -50,8 +50,10 @@ public class MovieController {
 		
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(@ModelAttribute("movie") Movie movie, Model model){
-		System.out.println(movie.getTitle());
+		String searchedText = movie.getTitle();
 		movies = movieService.getMoviesByTitle(movie.getTitle());
+		
+		model.addAttribute("searchedText", searchedText);
 		model.addAttribute("movies", movies);
 		return "index";
 	}
@@ -110,8 +112,8 @@ public class MovieController {
 	
 	@RequestMapping("/genre/{type}")
 	public String topByGenre(@PathVariable String type, Model model){
-		this.type = type;
-		movies = movieService.getMovieByGenreOrderByRating(this.type);
+		MovieController.type = type;
+		movies = movieService.getMovieByGenreOrderByRating(type);
 		model.addAttribute("type", type);
 		model.addAttribute("movies", movies);
 		desc = false;
