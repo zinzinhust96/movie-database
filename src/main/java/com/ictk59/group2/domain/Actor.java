@@ -26,9 +26,6 @@ public class Actor {
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "aka")
-	private String aka;
-	
 	@Column(name = "biography", columnDefinition = "TEXT")
 	private String biography;
 	
@@ -60,7 +57,6 @@ public class Actor {
 			String profilePic) {
 		super();
 		this.name = name;
-		this.aka = aka;
 		this.biography = biography;
 		this.birthday = birthday;
 		this.deathday = deathday;
@@ -78,14 +74,6 @@ public class Actor {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getAka() {
-		return aka;
-	}
-
-	public void setAka(String aka) {
-		this.aka = aka;
 	}
 
 	public String getBiography() {
@@ -138,8 +126,8 @@ public class Actor {
 
 	@Override
 	public String toString() {
-		return "Actor [id=" + id + ", name=" + name + ", aka=" + aka + ", biography=" + biography + ", birthday="
-				+ birthday + ", deathday=" + deathday + ", placeOfBirth=" + placeOfBirth + ", profilePic=" + profilePic
+		return "Actor [id=" + id + ", name=" + name + ", biography=" + biography + ", birthday=" + birthday
+				+ ", deathday=" + deathday + ", placeOfBirth=" + placeOfBirth + ", profilePic=" + profilePic
 				+ ", movies=" + movies + "]";
 	}
 

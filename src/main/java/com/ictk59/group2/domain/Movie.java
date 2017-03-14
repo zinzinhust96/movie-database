@@ -170,5 +170,4 @@ public class Movie {
 				+ ", director=" + director + ", casts=" + casts + ", plot=" + plot + ", poster=" + poster + ", rating="
 				+ rating + ", runtime=" + runtime + "]";
 	}
-
 }

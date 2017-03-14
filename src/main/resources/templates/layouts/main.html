@@ -45,7 +45,7 @@
 				            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Watchlist</a> 
 				        </li>
 				        <li class="dropdown">
-				        	<form th:action="@{/movie/search}" th:object="${movie}" method="post">
+				        	<form th:action="@{/search}" th:object="${movie}" method="post">
 				        		<input type="text" th:field="*{title}" placeholder="Search movies, actors.."/>
 				        		<input type="submit" value="Search"/>
 				        	</form>

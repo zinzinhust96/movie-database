@@ -51,16 +51,6 @@ public class MovieController {
 		return movie.toString();
 	}
 		
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String search(@ModelAttribute("movie") Movie movie, Model model){
-		String searchedText = movie.getTitle();
-		movies = movieService.getMoviesByTitle(movie.getTitle());
-		
-		model.addAttribute("searchedText", searchedText);
-		model.addAttribute("movies", movies);
-		return "index";
-	}
-	
 	@RequestMapping("/sort-rating")
 	public String sortRating(Model model){
 		model.addAttribute("type", type);

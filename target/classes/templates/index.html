@@ -15,8 +15,9 @@
 		
 		<h2>Result for "<span th:text = "${searchedText}">Searched text</span>"</h2>
 		<table class="table table-hover">
+			<h3>Titles</h3>
 			<tbody>
-				<tr>
+				<tr th:if="${movies.size() != 0}">
 					<th></th><th>Title</th><th>Rating</th>
 				</tr>
 				<tr th:each="movie : ${movies}">
@@ -27,12 +28,24 @@
 			</tbody>
 		</table>
 		
-		</div>
-		
 		<p th:if="${movies.size() == 0}">
 			<div class="alert alert-warning" role="alert">No Movies Found.</div>
 		</p>
 		
+		<table class="table table-hover">
+			<h3>Names</h3>
+			<tbody>
+				<tr th:each="actor : ${actors}">
+					<td><a th:href="@{/actor/} + ${actor.id}"><img th:src="${actor.profilePic}"/></a></td>
+					<td><a th:href="@{/actor/} + ${actor.id}" th:text="${actor.name}">Actor Name</a></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<p th:if="${actors.size() == 0}">
+			<div class="alert alert-warning" role="alert">No Actors Found.</div>
+		</p>
+		</div>
 	</div>
 		
 </body>
