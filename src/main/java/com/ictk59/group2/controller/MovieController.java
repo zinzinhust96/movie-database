@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +47,7 @@ public class MovieController {
 	@ResponseBody
 	public String view(@PathVariable("movieId") Long id){
 		Movie movie = movieService.getMovieById(id);
+		System.out.println(movie.getActors());
 		return movie.toString();
 	}
 		

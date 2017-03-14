@@ -1,14 +1,18 @@
 package com.ictk59.group2.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "movie_collection")
+@Table(name = "movies_info")
 public class Movie {
 	
 	@Id
@@ -44,6 +48,9 @@ public class Movie {
 	
 	@Column(name = "runtime")
 	private String runtime;
+	
+	@ManyToMany( mappedBy = "movies")
+	private Set<Actor> actors = new HashSet<Actor>();
 	
 	public Movie() {
 		
@@ -149,10 +156,19 @@ public class Movie {
 		return id;
 	}
 
+	public Set<Actor> getActors() {
+		return actors;
+	}
+
+	public void setActors(Set<Actor> actors) {
+		this.actors = actors;
+	}
+
 	@Override
 	public String toString() {
 		return "Movie [id=" + id + ", title=" + title + ", year=" + year + ", country=" + country + ", genre=" + genre
-				+ ", director=" + director + ", casts=" + casts + ", plot=" + plot + ", rating=" + rating + ", runtime="
-				+ runtime + "]";
+				+ ", director=" + director + ", casts=" + casts + ", plot=" + plot + ", poster=" + poster + ", rating="
+				+ rating + ", runtime=" + runtime + "]";
 	}
+
 }
