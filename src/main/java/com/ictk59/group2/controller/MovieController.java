@@ -28,7 +28,7 @@ public class MovieController {
 	
 	public static List<Movie> movies;
 	
-	private Boolean desc = true;
+	private Boolean desc = false;
 	
 	public static String type;
 

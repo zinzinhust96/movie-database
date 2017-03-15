@@ -51,7 +51,13 @@
 				        	</form>
 				        </li>
 				    </ul>
-				    <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Administrator</a></p>
+				    <div class="navbar-text navbar-right">
+			            Welcome <span sec:authentication="name">Guest</span> | 
+				    	<form sec:authorize="isAuthenticated()" id="frmlogout" th:action="@{/logout}" method="post" class="form-inline">
+				    		<a href="javascript:{}" onclick="document.getElementById('frmlogout').submit(); return false;">Logout</a>
+				    	</form>
+				    	<a sec:authorize="!isAuthenticated()" th:href="@{/login}"> Login</a>
+				    </div>
 				</div>
 		    </div>
 		</nav>
