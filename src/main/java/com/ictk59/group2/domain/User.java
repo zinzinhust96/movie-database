@@ -22,7 +22,7 @@ public class User {
 	@Column(name="full_name")
 	private String fullName;
 	
-	private User() {}
+	public User() {}
 
 	public Long getId() {
 		return id;

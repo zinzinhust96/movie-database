@@ -27,9 +27,7 @@ public class MovieController {
 	private MovieService movieService;
 	
 	public static List<Movie> movies;
-	
-	private Boolean desc = false;
-	
+		
 	public static String type;
 
 	@Autowired
@@ -50,57 +48,57 @@ public class MovieController {
 		System.out.println(movie.getActors());
 		return movie.toString();
 	}
-		
-	@RequestMapping("/sort-rating")
-	public String sortRating(Model model){
+	
+	@RequestMapping("/sort-rating-asc")
+	public String sortRatingAsc(Model model){
 		model.addAttribute("type", type);
-		if(desc == true){
-			Collections.sort(movies, new Comparator<Movie>() {
-				@Override
-				public int compare(Movie m1, Movie m2) {
-					return m2.getRating().compareTo(m1.getRating());
-				}
-			});
-			desc = false;
-			model.addAttribute("movies", movies);
-			return "movie/rating-desc";
-		}else{
-			Collections.sort(movies, new Comparator<Movie>() {
-				@Override
-				public int compare(Movie m1, Movie m2) {
-					return m1.getRating().compareTo(m2.getRating());
-				}
-			});
-			desc = true;
-			model.addAttribute("movies", movies);
-			return "movie/rating-asc";
-		}
+		Collections.sort(movies, new Comparator<Movie>() {
+			@Override
+			public int compare(Movie m1, Movie m2) {
+				return m1.getRating().compareTo(m2.getRating());
+			}
+		});
+		model.addAttribute("movies", movies);
+		return "movie/rating-asc";
 	}
 	
-	@RequestMapping("/sort-year")
-	public String sortYear(Model model){
+	@RequestMapping("/sort-rating-desc")
+	public String sortRatingDesc(Model model){
 		model.addAttribute("type", type);
-		if(desc == true){
-			Collections.sort(movies, new Comparator<Movie>() {
-				@Override
-				public int compare(Movie m1, Movie m2) {
-					return m2.getYear().compareTo(m1.getYear());
-				}
-			});
-			desc = false;
-			model.addAttribute("movies", movies);
-			return "movie/year-desc";
-		}else{
-			Collections.sort(movies, new Comparator<Movie>() {
-				@Override
-				public int compare(Movie m1, Movie m2) {
-					return m1.getYear().compareTo(m2.getYear());
-				}
-			});
-			desc = true;
-			model.addAttribute("movies", movies);
-			return "movie/year-asc";
-		}
+		Collections.sort(movies, new Comparator<Movie>() {
+			@Override
+			public int compare(Movie m1, Movie m2) {
+				return m2.getRating().compareTo(m1.getRating());
+			}
+		});
+		model.addAttribute("movies", movies);
+		return "movie/rating-desc";
+	}
+	
+	@RequestMapping("/sort-year-asc")
+	public String sortYearAsc(Model model){
+		model.addAttribute("type", type);
+		Collections.sort(movies, new Comparator<Movie>() {
+			@Override
+			public int compare(Movie m1, Movie m2) {
+				return m1.getYear().compareTo(m2.getYear());
+			}
+		});
+		model.addAttribute("movies", movies);
+		return "movie/year-asc";
+	}
+	
+	@RequestMapping("/sort-year-desc")
+	public String sortYearDesc(Model model){
+		model.addAttribute("type", type);
+		Collections.sort(movies, new Comparator<Movie>() {
+			@Override
+			public int compare(Movie m1, Movie m2) {
+				return m2.getYear().compareTo(m1.getYear());
+			}
+		});
+		model.addAttribute("movies", movies);
+		return "movie/year-desc";
 	}
 	
 	@RequestMapping("/genre/{type}")
@@ -109,7 +107,6 @@ public class MovieController {
 		movies = movieService.getMovieByGenreOrderByRating(type);
 		model.addAttribute("type", type);
 		model.addAttribute("movies", movies);
-		desc = false;
 		return "movie/rating-desc";
 	}
 	

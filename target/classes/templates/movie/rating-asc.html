@@ -3,6 +3,8 @@
 	xmlns:th="http://www.thymleaf.org"
 	layout:decorator="layouts/main">
 <head>
+	<meta http-equiv="Cache-Control" content="public" />
+	<meta http-equiv="max-age" content="31536000" />
 	<title>MOVIE DATABASE - Home Page</title>
 	
 	<link rel="stylesheet" href="../static/css/blog.css" th:href="@{/css/blog.css}"/>
@@ -22,9 +24,13 @@
 		<h2>Lowest rated <span th:text="${type}">type</span> feature film</h2>
 		<table class="table table-hover">
 			<p>SORT BY:
-				<a th:href="@{/movie/sort-rating}" class="dropup"><strong><ins>Rating</ins></strong><span class="caret"></span></a>
+				<a th:href="@{/movie/sort-rating-asc}" class="dropup"><strong><ins>Rating</ins></strong><span class="caret"></span></a>
 				<span>|</span>
-				<a th:href="@{/movie/sort-year}">Release Year</a>
+				<a th:href="@{/movie/sort-rating-desc}" class="dropdown">Rating<span class="caret"></span></a>
+				<span>|</span>
+				<a th:href="@{/movie/sort-year-asc}" class="dropup">Release Year<span class="caret"></span></a>
+				<span>|</span>
+				<a th:href="@{/movie/sort-year-desc}" class="dropdown">Release Year<span class="caret"></span></a>
 			</p>
 			<tbody>
 				<tr>

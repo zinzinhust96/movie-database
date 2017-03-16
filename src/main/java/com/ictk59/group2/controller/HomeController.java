@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ictk59.group2.domain.Actor;
 import com.ictk59.group2.domain.Movie;
@@ -19,13 +19,13 @@ public class HomeController {
 	
 	private MovieService movieService;
 	
-	private ActorService actorServices;
-	
+	private ActorService actorService;
+		
 	@Autowired
 	public HomeController(MovieService movieService, ActorService actorService) {
 		super();
 		this.movieService = movieService;
-		this.actorServices = actorService;
+		this.actorService = actorService;
 	}
 	
 	@ModelAttribute("movie")
@@ -44,15 +44,16 @@ public class HomeController {
 		return "movie/year-desc";
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String search(@ModelAttribute("movie") Movie movie, Model model){
+	@RequestMapping(value = "/search")
+	public String search(@ModelAttribute("movie") Movie movie, RedirectAttributes attributes, Model model){
 		String searchedText = movie.getTitle();
 		List<Movie> movies = movieService.getMoviesByTitle(searchedText);
-		List<Actor> actors = actorServices.getActorsByName(searchedText);
+		List<Actor> actors = actorService.getActorsByName(searchedText);
 		
 		model.addAttribute("searchedText", searchedText);
 		model.addAttribute("movies", movies);
 		model.addAttribute("actors", actors);
 		return "index";
 	}
+	
 }
