@@ -19,6 +19,8 @@ public class User {
 	@Column(name="password", nullable=false )
 	private String password;
 	
+	private String passwordConfirm;
+	
 	@Column(name="full_name")
 	private String fullName;
 	
@@ -42,6 +44,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
 	}
 
 	public String getFullName() {
