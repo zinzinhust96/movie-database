@@ -42,7 +42,7 @@
 			<h3>Names</h3>
 			<tbody>
 				<tr th:each="actor : ${actors}">
-					<td><a th:href="@{/actor/} + ${actor.id}"><img th:src="${'https://image.tmdb.org/t/p/w1000/' + actor.profilePic}"/></a></td>
+					<td><a th:href="@{/actor/} + ${actor.id}"><img th:src="${actor.profilePic == null} ? @{/images/placeholder.jpg} : ${'https://image.tmdb.org/t/p/w1000' + actor.profilePic}"/></a></td>
 					<td><a th:href="@{/actor/} + ${actor.id}" th:text="${actor.name}">Actor Name</a></td>
 					<td></td>
 				</tr>

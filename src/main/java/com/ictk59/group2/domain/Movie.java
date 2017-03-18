@@ -34,6 +34,9 @@ public class Movie {
 	@Column(name = "director")
 	private String director;
 	
+	@Column(name = "writer")
+	private String writer;
+	
 	@Column(name = "casts")
 	private String casts;
 	
@@ -56,7 +59,7 @@ public class Movie {
 		
 	}
 
-	public Movie(String title, String year, String country, String genre, String director, String casts, String plot, String poster,
+	public Movie(String title, String year, String country, String genre, String director, String writer, String casts, String plot, String poster,
 			String rating, String runtime) {
 		super();
 		this.title = title;
@@ -64,6 +67,7 @@ public class Movie {
 		this.country = country;
 		this.genre = genre;
 		this.director = director;
+		this.writer = writer;
 		this.casts = casts;
 		this.plot = plot;
 		this.poster = poster;
@@ -110,6 +114,14 @@ public class Movie {
 
 	public void setDirector(String director) {
 		this.director = director;
+	}
+	
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 	public String getCasts() {
@@ -167,7 +179,7 @@ public class Movie {
 	@Override
 	public String toString() {
 		return "Movie [id=" + id + ", title=" + title + ", year=" + year + ", country=" + country + ", genre=" + genre
-				+ ", director=" + director + ", casts=" + casts + ", plot=" + plot + ", poster=" + poster + ", rating="
-				+ rating + ", runtime=" + runtime + "]";
+				+ ", director=" + director + ", writer=" + writer + ", casts=" + casts + ", plot=" + plot + ", poster="
+				+ poster + ", rating=" + rating + ", runtime=" + runtime + "]";
 	}
 }

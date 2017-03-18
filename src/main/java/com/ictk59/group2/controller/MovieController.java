@@ -42,11 +42,11 @@ public class MovieController {
 	}
 
 	@RequestMapping("/{movieId}")
-	@ResponseBody
-	public String view(@PathVariable("movieId") Long id){
+	public String view(@PathVariable("movieId") Long id, Model model){
 		Movie movie = movieService.getMovieById(id);
 		System.out.println(movie.getActors());
-		return movie.toString();
+		model.addAttribute("movieProfile", movie);
+		return "movie/movie-profile";
 	}
 	
 	@RequestMapping("/sort-rating-asc")
