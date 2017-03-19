@@ -1,21 +1,17 @@
 package com.ictk59.group2.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ictk59.group2.domain.Movie;
 import com.ictk59.group2.service.MovieService;
@@ -25,11 +21,7 @@ import com.ictk59.group2.service.MovieService;
 public class MovieController {
 	
 	private MovieService movieService;
-	
-	public static List<Movie> movies;
-		
-	public static String type;
-
+			
 	@Autowired
 	public MovieController(MovieService movieService) {
 		super();
@@ -40,74 +32,45 @@ public class MovieController {
 	public Movie newMovie(){
 		return new Movie();
 	}
+	
+	@RequestMapping("/")
+	public String home(Model model){
+		List<Movie> movies = movieService.getMovieOrderByYear();
+		model.addAttribute("type", "");
+		model.addAttribute("movies", movies);
+		return "movie/year-desc";
+	}
 
 	@RequestMapping("/{movieId}")
 	public String view(@PathVariable("movieId") Long id, Model model){
 		Movie movie = movieService.getMovieById(id);
-		System.out.println(movie.getActors());
 		model.addAttribute("movieProfile", movie);
 		return "movie/movie-profile";
 	}
 	
-	@RequestMapping("/sort-rating-asc")
-	public String sortRatingAsc(Model model){
-		model.addAttribute("type", type);
-		Collections.sort(movies, new Comparator<Movie>() {
-			@Override
-			public int compare(Movie m1, Movie m2) {
-				return m1.getRating().compareTo(m2.getRating());
-			}
-		});
-		model.addAttribute("movies", movies);
-		return "movie/rating-asc";
+	@RequestMapping(
+		value = "/search",
+		params = {"genre", "sort"})
+	public String sort(Model model, @RequestParam(value = "genre") String genreType, @RequestParam("sort") String sort){
+		model.addAttribute("type", genreType);
+		if(sort.equalsIgnoreCase("rating,asc")){
+			List<Movie> movies = movieService.getMoviesByGenre(genreType, new Sort(Sort.Direction.ASC, "rating"));
+			model.addAttribute("movies", movies);
+			return "movie/rating-asc";
+		}else if(sort.equalsIgnoreCase("rating,desc")){
+			List<Movie> movies = movieService.getMoviesByGenre(genreType, new Sort(Sort.Direction.DESC, "rating"));
+			model.addAttribute("movies", movies);
+			return "movie/rating-desc";
+		}else if(sort.equalsIgnoreCase("year,asc")){
+			List<Movie> movies = movieService.getMoviesByGenre(genreType, new Sort(Sort.Direction.ASC, "year"));
+			model.addAttribute("movies", movies);
+			return "movie/year-asc";
+		}else if(sort.equalsIgnoreCase("year,desc")){
+			List<Movie> movies = movieService.getMoviesByGenre(genreType, new Sort(Sort.Direction.DESC, "year"));
+			model.addAttribute("movies", movies);
+			return "movie/year-desc";
+		}else{
+			return null;
+		}
 	}
-	
-	@RequestMapping("/sort-rating-desc")
-	public String sortRatingDesc(Model model){
-		model.addAttribute("type", type);
-		Collections.sort(movies, new Comparator<Movie>() {
-			@Override
-			public int compare(Movie m1, Movie m2) {
-				return m2.getRating().compareTo(m1.getRating());
-			}
-		});
-		model.addAttribute("movies", movies);
-		return "movie/rating-desc";
-	}
-	
-	@RequestMapping("/sort-year-asc")
-	public String sortYearAsc(Model model){
-		model.addAttribute("type", type);
-		Collections.sort(movies, new Comparator<Movie>() {
-			@Override
-			public int compare(Movie m1, Movie m2) {
-				return m1.getYear().compareTo(m2.getYear());
-			}
-		});
-		model.addAttribute("movies", movies);
-		return "movie/year-asc";
-	}
-	
-	@RequestMapping("/sort-year-desc")
-	public String sortYearDesc(Model model){
-		model.addAttribute("type", type);
-		Collections.sort(movies, new Comparator<Movie>() {
-			@Override
-			public int compare(Movie m1, Movie m2) {
-				return m2.getYear().compareTo(m1.getYear());
-			}
-		});
-		model.addAttribute("movies", movies);
-		return "movie/year-desc";
-	}
-	
-	@RequestMapping("/genre/{type}")
-	public String topByGenre(@PathVariable String type, Model model){
-		MovieController.type = type;
-		movies = movieService.getMovieByGenreOrderByRating(type);
-		model.addAttribute("type", type);
-		model.addAttribute("movies", movies);
-		return "movie/rating-desc";
-	}
-	
 }

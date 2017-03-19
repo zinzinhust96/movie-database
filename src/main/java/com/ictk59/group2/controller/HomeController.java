@@ -32,16 +32,10 @@ public class HomeController {
 	public Movie newMovie(){
 		return new Movie();
 	}
-
+	
 	@RequestMapping("/")
-	public String home(Model model){
-		model.addAttribute("movie", new Movie());
-		
-		MovieController.type = "";
-				
-		MovieController.movies = movieService.getMovieOrderByYear();
-		model.addAttribute("movies", MovieController.movies);
-		return "movie/year-desc";
+	public String home(){
+		return "homepage";
 	}
 	
 	@RequestMapping(value = "/search")

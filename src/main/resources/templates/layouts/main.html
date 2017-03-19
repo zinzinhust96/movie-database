@@ -31,19 +31,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                       
       </button>
-      <a class="navbar-brand" href="/">ICT K59 MOVIE DATABASE</a>
+      <a class="navbar-brand" href="/">IMDb</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="dropdown"><a href="/">Home</a></li>
+        <li class="dropdown"><a href="/movie/">Latest Movies</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Top movies by genre <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/movie/genre/action">Action</a></li>
-            <li><a href="/movie/genre/adventure">Adventure</a></li>
-            <li><a href="/movie/genre/animation">Animation</a></li>
-            <li><a href="/movie/genre/comedy">Comedy</a></li>
-            <li><a href="/movie/genre/crime">Crime</a></li>
+            <li><a th:href="@{/movie/search?genre=action&amp;sort=rating,desc}">Action</a></li>
+            <li><a th:href="@{/movie/search?genre=adventure&amp;sort=rating,desc}">Adventure</a></li>
+            <li><a th:href="@{/movie/search?genre=animation&amp;sort=rating,desc}">Animation</a></li>
+            <li><a th:href="@{/movie/search?genre=comedy&amp;sort=rating,desc}">Comedy</a></li>
+            <li><a th:href="@{/movie/search?genre=crime&amp;sort=rating,desc}">Crime</a></li>
           </ul>
         </li>
         <li><a href="/user/">My watchlist</a></li>

@@ -3,6 +3,7 @@ package com.ictk59.group2.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.ictk59.group2.domain.Movie;
@@ -35,4 +36,11 @@ public class MovieService {
 		return movieRepo.findAllByGenreContainingIgnoreCaseOrderByRatingDesc(genre);
 	}
 
+	public Iterable<Movie> list() {
+		return movieRepo.findAll();
+	}
+
+	public List<Movie> getMoviesByGenre(String genre, Sort sort) {
+		return movieRepo.findAllByGenreContainingIgnoreCase(genre, sort);
+	}
 }

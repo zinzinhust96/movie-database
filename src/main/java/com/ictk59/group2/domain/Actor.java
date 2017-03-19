@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "actors_info")
 public class Actor {
@@ -47,6 +49,7 @@ public class Actor {
 		joinColumns = {@JoinColumn(name="actor_id")}, 
 		inverseJoinColumns = {@JoinColumn(name="movie_id")}  
 	)
+	@JsonBackReference
 	private Set<Movie> movies = new HashSet<Movie>();
 
 	public Actor() {

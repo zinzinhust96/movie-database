@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "movies_info")
 public class Movie {
@@ -53,6 +55,7 @@ public class Movie {
 	private String runtime;
 	
 	@ManyToMany( mappedBy = "movies")
+	@JsonManagedReference
 	private Set<Actor> actors = new HashSet<Actor>();
 	
 	public Movie() {
