@@ -32,10 +32,6 @@ public class MovieService {
 		return movieRepo.findAllByTitleContainingIgnoreCase(movieName);
 	}
 
-	public List<Movie> getMovieByGenreOrderByRating(String genre) {
-		return movieRepo.findAllByGenreContainingIgnoreCaseOrderByRatingDesc(genre);
-	}
-
 	public Iterable<Movie> list() {
 		return movieRepo.findAll();
 	}

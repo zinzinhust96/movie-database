@@ -11,7 +11,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
+import com.ictk59.group2.handler.MyCustomLoginSuccessHandler;
 import com.ictk59.group2.validator.UserValidator;
 
 @Configuration
@@ -32,6 +35,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new UserValidator();
     }
 	
+	@Bean
+	public AuthenticationSuccessHandler successHandler() {
+	    return new MyCustomLoginSuccessHandler("/");
+	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -41,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.formLogin()
 				.loginPage("/login")
+				.successHandler(successHandler())
 				.permitAll()
 				.and()
 			.logout()

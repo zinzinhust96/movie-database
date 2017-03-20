@@ -1,5 +1,7 @@
 package com.ictk59.group2.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,6 +49,14 @@ public class UserController {
         securityService.autologin(user.getUsername(), user.getPasswordConfirm());
 
         return "redirect:/welcome";
+    }
+    
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage(HttpServletRequest request, Model model) {
+        String referrer = request.getHeader("Referer");
+        request.getSession().setAttribute("url_prior_login", referrer);
+        // some other stuff
+        return "auth/login";
     }
     
     @RequestMapping(value = {"/welcome"}, method = RequestMethod.GET)

@@ -1,11 +1,12 @@
 package com.ictk59.group2.controller;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,9 +37,12 @@ public class MovieController {
 	@RequestMapping("/")
 	public String home(Model model){
 		List<Movie> movies = movieService.getMovieOrderByYear();
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//	    String name = auth.getName(); //get logged in username
+//	    System.out.println(name);
 		model.addAttribute("type", "");
 		model.addAttribute("movies", movies);
-		return "movie/year-desc";
+		return "sort/year-desc";
 	}
 
 	@RequestMapping("/{movieId}")
@@ -56,19 +60,19 @@ public class MovieController {
 		if(sort.equalsIgnoreCase("rating,asc")){
 			List<Movie> movies = movieService.getMoviesByGenre(genreType, new Sort(Sort.Direction.ASC, "rating"));
 			model.addAttribute("movies", movies);
-			return "movie/rating-asc";
+			return "sort/rating-asc";
 		}else if(sort.equalsIgnoreCase("rating,desc")){
 			List<Movie> movies = movieService.getMoviesByGenre(genreType, new Sort(Sort.Direction.DESC, "rating"));
 			model.addAttribute("movies", movies);
-			return "movie/rating-desc";
+			return "sort/rating-desc";
 		}else if(sort.equalsIgnoreCase("year,asc")){
 			List<Movie> movies = movieService.getMoviesByGenre(genreType, new Sort(Sort.Direction.ASC, "year"));
 			model.addAttribute("movies", movies);
-			return "movie/year-asc";
+			return "sort/year-asc";
 		}else if(sort.equalsIgnoreCase("year,desc")){
 			List<Movie> movies = movieService.getMoviesByGenre(genreType, new Sort(Sort.Direction.DESC, "year"));
 			model.addAttribute("movies", movies);
-			return "movie/year-desc";
+			return "sort/year-desc";
 		}else{
 			return null;
 		}

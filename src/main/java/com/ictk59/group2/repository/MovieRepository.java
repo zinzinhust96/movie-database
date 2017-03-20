@@ -16,5 +16,4 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 	
 	List<Movie> findAllByGenreContainingIgnoreCase(@Param("genre") String genre, @Param("sort") Sort sort);
 
-	List<Movie> findAllByGenreContainingIgnoreCaseOrderByRatingDesc(String genre);
 }
