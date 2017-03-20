@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en"
+	xmlns:th="http://www.thymleaf.org"
+	layout:decorator="layouts/main">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta http-equiv="Cache-Control" content="public" />
+	<meta http-equiv="max-age" content="31536000" />
+	<title>MOVIE DATABASE - Home Page</title>
+	
+	<link rel="stylesheet" href="../static/css/blog.css" th:href="@{/css/blog.css}"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+	<style type="text/css">
+		#profilePic{
+			width: 48px;
+			height: 64px;
+		}
+	</style>
 </head>
 <body>
+		
+	<div layout:fragment="content">
+	   
+	   <section class="about-section" style="height:100%;padding-top:100px">
+    <div class="container">
+      <div class="well">
+        <div class="row">
+          <div class="col-md-6">
+          	  <h2 th:text="${movieProfile.title + ' (' + movieProfile.year + ')'}"><b>Movie Title</b></h2>
+              <img class="img-responsive" th:src="${movieProfile.poster}" alt="Movie Poster"/>
+              <a th:href="@{/user/add/} + ${movieProfile.id}"> <i class="fa fa-plus" aria-hidden="true"></i>  Add to watchlist </a>
+          </div>
+          <div class="col-md-5">
+            <ul style="text-align:left">
+              <li th:text="${movieProfile.genre}">Gene</li>
+              <li th:text="${movieProfile.plot}">Plot</li>
+              <br/>
+              <li>Director: <span th:text="${movieProfile.director}"></span></li>
+              <li>Writer: <span th:text="${movieProfile.writer}"></span></li>
+              <li>Stars: <span th:text="${movieProfile.casts}"></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table>
+    	<tbody>
+			<tr th:each="actor : ${movieProfile.actors}">
+				<td><a th:href="@{/actor/} + ${actor.id}"><img id="profilePic" th:src="${actor.profilePic == null} ? @{/images/placeholder.jpg} : ${'https://image.tmdb.org/t/p/w1000' + actor.profilePic}"/></a></td>
+				<td><a th:href="@{/actor/} + ${actor.id}" th:text="${actor.name}">Actor Name</a></td>
+			</tr>
+		</tbody>
+	</table>
 
+</section>
+		
+	</div>
+		
 </body>
 </html>

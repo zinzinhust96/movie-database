@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.thymleaf.org"
+	layout:decorator="layouts/main">
+<head>
+	<meta http-equiv="Cache-Control" content="public" />
+	<meta http-equiv="max-age" content="31536000" />
+	<title>MOVIE DATABASE - Home Page</title>
+	
+	<link rel="stylesheet" href="../static/css/blog.css" th:href="@{/css/blog.css}"/>
+	<style type="text/css">
+		img {
+			width: 48px;
+			height: 64px;
+		}
+	</style>
+</head>
+<body>
+		
+	<div layout:fragment="content">
+	   
+		<div class="container">
+		
+		<h2><span th:text="${username}">User</span>'s watchlist</h2>
+		<table class="table table-hover">
+			<tbody>
+				<tr>
+					<th></th><th>Title</th><th>Rating</th>
+				</tr>
+				<tr th:each="movie : ${movies}">
+					<td><a th:href="@{/movie/} + ${movie.id}"><img th:src="${movie.poster}"/></a></td>
+					<td><a th:href="@{/movie/} + ${movie.id}" th:text="${movie.title + ' (' + movie.year + ')'}">Movie Name</a></td>
+					<td th:text="${movie.rating}">Movie Rating</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		</div>
+		
+		<p th:if="${movies.size() == 0}">
+			<div class="alert alert-warning" role="alert">No Movies Found.</div>
+		</p>
+		
+	</div>
+		
+</body>
+</html>

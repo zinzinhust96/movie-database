@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 	}
+	
+	@Override
+	public void saveWatchlist(User user) {
+		userRepository.save(user);
+	}
 
 	@Override
 	public User findByUsername(String username) {
@@ -46,5 +51,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		
 		return new UserDetailsImpl(user);
 	}
+
 	
 }

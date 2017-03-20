@@ -8,4 +8,5 @@ public interface UserService {
 	
 	void save(User user);
 	
+	void saveWatchlist(User user);
 }

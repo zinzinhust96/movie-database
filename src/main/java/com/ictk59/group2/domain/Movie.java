@@ -58,6 +58,9 @@ public class Movie {
 	@JsonManagedReference
 	private Set<Actor> actors = new HashSet<Actor>();
 	
+	@ManyToMany( mappedBy = "watchlist")
+	private Set<User> users = new HashSet<User>();
+	
 	public Movie() {
 		
 	}

@@ -1,9 +1,17 @@
 package com.ictk59.group2.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +31,14 @@ public class User {
 	
 	@Column(name="full_name")
 	private String fullName;
+	
+	@ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+	@JoinTable( 
+		name = "users_movies", 
+		joinColumns = {@JoinColumn(name="user_id")}, 
+		inverseJoinColumns = {@JoinColumn(name="movie_id")}  
+	)
+	private Set<Movie> watchlist = new HashSet<Movie>();
 	
 	public User() {}
 
@@ -60,6 +76,14 @@ public class User {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public Set<Movie> getWatchlist() {
+		return watchlist;
+	}
+
+	public void setWatchlist(Set<Movie> watchlist) {
+		this.watchlist = watchlist;
 	}
 
 	@Override

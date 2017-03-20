@@ -46,7 +46,7 @@
             <li><a th:href="@{/movie/search?genre=crime&amp;sort=rating,desc}">Crime</a></li>
           </ul>
         </li>
-        <li><a href="/user/">My watchlist</a></li>
+        <li><a href="/user/watchlist">My watchlist</a></li>
       </ul>
       <form class="navbar-form navbar-left" th:action="@{/search}" th:object="${movie}">
       <div class="input-group">

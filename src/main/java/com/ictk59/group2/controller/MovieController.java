@@ -2,6 +2,7 @@ package com.ictk59.group2.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -15,18 +16,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ictk59.group2.domain.Movie;
+import com.ictk59.group2.domain.User;
 import com.ictk59.group2.service.MovieService;
+import com.ictk59.group2.service.UserService;
 
 @Controller
 @RequestMapping("/movie")
 public class MovieController {
 	
 	private MovieService movieService;
+	private UserService userService;
 			
 	@Autowired
-	public MovieController(MovieService movieService) {
+	public MovieController(MovieService movieService, UserService userService) {
 		super();
 		this.movieService = movieService;
+		this.userService = userService;
 	}
 	
 	@ModelAttribute("movie")
@@ -49,7 +54,20 @@ public class MovieController {
 	public String view(@PathVariable("movieId") Long id, Model model){
 		Movie movie = movieService.getMovieById(id);
 		model.addAttribute("movieProfile", movie);
-		return "movie/movie-profile";
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String username = auth.getName(); //get logged in username
+	    if(username.equals("anonymousUser")){
+	    	return "movie/movie-profile-add";
+	    }else{
+	    	User currentUser = userService.findByUsername(username);
+	    	Set<Movie> currentWatchlist = currentUser.getWatchlist();
+	    	if(currentWatchlist.contains(movie)){
+	    		return "movie/movie-profile-remove";
+	    	}else{
+	    		return "movie/movie-profile-add";
+	    	}
+	    }
 	}
 	
 	@RequestMapping(
